@@ -78,7 +78,7 @@ public class VentanaResumeTiempoTotalMaquina extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaRegistroMaquina principal = new VentanaRegistroMaquina();
+        VentanaRegistroMaquina principal = new VentanaRegistroMaquina(WIDTH, NORMAL);
         principal.setVisible(true);
         principal.setLocationRelativeTo(this);
         this.dispose();

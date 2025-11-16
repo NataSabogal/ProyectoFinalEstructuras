@@ -5,6 +5,7 @@
 package modelo;
 
 import java.io.Serializable;
+import util.Lista;
 
 /**
  *
@@ -19,9 +20,17 @@ public class Maquina implements Serializable {
     private EstadoMaquina estado;
     private double valorPorHora;
     private Mantenimiento mantenimiento;
+    private Lista<Reserva> listaReservas;
 
-    //aquí va la lista de reservas ?
     public Maquina() {
+        this.id = null;
+        this.tipoDeJuego = null;
+        this.genero = null;
+        this.edadMinima = 0;
+        this.estado = EstadoMaquina.DISPONIBLE;
+        this.valorPorHora = 0.0;
+        this.listaReservas = new Lista<>();
+
     }
 
     public Maquina(String id, String tipoDeJuego, String genero, int edadMinima, double valorPorHora) {
@@ -31,6 +40,7 @@ public class Maquina implements Serializable {
         this.edadMinima = edadMinima;
         this.estado = EstadoMaquina.DISPONIBLE;
         this.valorPorHora = valorPorHora;
+        this.listaReservas = new Lista<>();
     }
 
     public Maquina(String id, String tipoDeJuego, String genero, int edadMinima, EstadoMaquina estado, double valorPorHora, Mantenimiento mantenimiento) {
@@ -41,9 +51,8 @@ public class Maquina implements Serializable {
         this.estado = EstadoMaquina.FUERADESERVICIO;
         this.valorPorHora = valorPorHora;
         this.mantenimiento = mantenimiento;
+        this.listaReservas = new Lista<>();
     }
-    
-    
 
     public String getId() {
         return id;

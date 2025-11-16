@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author nataliasabogalrada
  */
 public interface ILista <T>  extends Serializable{
-    
+        
     public void add(T dato);
     
     public boolean isEmpty();

@@ -14,15 +14,15 @@ import util.Lista;
 public class Cliente extends Usuario implements Serializable {
 
     private int edad;
-    private Lista<Suscripcion> historialSuscripciones;
-    private Lista<Reserva> reservasDelCliente;
+    private Lista<Suscripcion> misSuscripciones;
+    private Lista<Reserva> reservasSinSuscripcion;
     private double totalInvertido;
 
     public Cliente(int edad, double totalInvertido, String cedula, String nombre, String telefono, String usuario, String password, Rol rol) {
         super(cedula, nombre, telefono, usuario, password, rol);
         this.edad = edad;
-        this.historialSuscripciones = new Lista<>();
-        this.reservasDelCliente = new Lista<>();
+        this.misSuscripciones = new Lista<>();
+        this.reservasSinSuscripcion = new Lista<>();
         this.totalInvertido = totalInvertido;
     }
 
@@ -34,20 +34,20 @@ public class Cliente extends Usuario implements Serializable {
         this.edad = edad;
     }
 
-    public Lista<Suscripcion> getHistorialSuscripciones() {
-        return historialSuscripciones;
+    public Lista<Suscripcion> getMisSuscripciones() {
+        return misSuscripciones;
     }
 
-    public void setHistorialSuscripciones(Lista<Suscripcion> historialSuscripciones) {
-        this.historialSuscripciones = historialSuscripciones;
+    public void setMisSuscripciones(Lista<Suscripcion> misSuscripciones) {
+        this.misSuscripciones = misSuscripciones;
     }
 
-    public Lista<Reserva> getReservasDelCliente() {
-        return reservasDelCliente;
+    public Lista<Reserva> getReservasSinSuscripcion() {
+        return reservasSinSuscripcion;
     }
 
-    public void setReservasDelCliente(Lista<Reserva> reservasDelCliente) {
-        this.reservasDelCliente = reservasDelCliente;
+    public void setReservasSinSuscripcion(Lista<Reserva> reservasSinSuscripcion) {
+        this.reservasSinSuscripcion = reservasSinSuscripcion;
     }
 
     public double getTotalInvertido() {
@@ -57,8 +57,4 @@ public class Cliente extends Usuario implements Serializable {
     public void setTotalInvertido(double totalInvertido) {
         this.totalInvertido = totalInvertido;
     }
-
-    
-    
-    
 }

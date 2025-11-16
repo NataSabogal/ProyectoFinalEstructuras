@@ -4,21 +4,33 @@
  */
 package vista;
 
+import controlador.ControladorMaquina;
+import javax.swing.JOptionPane;
+import modelo.Mantenimiento;
+import modelo.Maquina;
+
 /**
  *
  * @author nataliasabogalrada
  */
 public class VentanaRegistroMaquina extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaRegistroMaquina.class.getName());
+    ControladorMaquina controller;
+    private int fila;
+    private int columna;
 
     /**
      * Creates new form VentanaRegistroMaquina
      */
-    public VentanaRegistroMaquina() {
+    public VentanaRegistroMaquina(int fila, int columna) {
         initComponents();
+        this.fila = fila;
+        this.columna = columna;
         panelMantenimiento.setVisible(false);
         this.setLocationRelativeTo(null);
+        controller = new ControladorMaquina();
+
     }
 
     /**
@@ -79,6 +91,11 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
         jLabel5.setText("Tipo de Juego:");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -213,6 +230,11 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
         jLabel7.setText("Días Fuera de Servicio:");
 
         btnCrearMantenimiento.setText("Crear Mantenimiento");
+        btnCrearMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearMantenimientoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelMantenimientoLayout = new javax.swing.GroupLayout(panelMantenimiento);
         panelMantenimiento.setLayout(panelMantenimientoLayout);
@@ -275,10 +297,31 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        String id = txtId.getText();
+        Maquina maquina = controller.buscarMaquina(fila, columna, id);
+        if (maquina != null) {
+            txtPrecio.setText(maquina.getValorPorHora() + "");
+            txtTipoDeJuego.setText(maquina.getTipoDeJuego());
+            cbGenero.setSelectedItem(maquina.getGenero());
+            jSEdad.setValue(maquina.getEdadMinima());
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró");
+        }
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        String genero = (String) cbGenero.getSelectedItem();
+        String id = txtId.getText();
+        String nombre = txtTipoDeJuego.getText();
+        int edadMinima = (Integer) jSEdad.getValue();
+        double valorPorHora = Double.parseDouble(txtPrecio.getText());
+        Maquina maquina = new Maquina(id, nombre, genero, edadMinima, valorPorHora);
+        controller.editarMaquina(fila, columna, maquina);
+        limpiar();
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -301,29 +344,45 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnTiempoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+            String genero = (String) cbGenero.getSelectedItem();
+            String id = txtId.getText();
+            String nombre = txtTipoDeJuego.getText();
+            int edadMinima = (Integer) jSEdad.getValue();
+            double valorPorHora = Double.parseDouble(txtPrecio.getText());
+            Maquina maquina = new Maquina(id, nombre, genero, edadMinima, valorPorHora);
+            controller.agregarMaquina(fila, columna, maquina);
+            limpiar();
+            JOptionPane.showMessageDialog(null, "Maquina agregada correctamente!!!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaRegistroMaquina().setVisible(true));
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCrearMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMantenimientoActionPerformed
+        // TODO add your handling code here:
+        String motivo = txtMotivo.getText();
+        int dias = (Integer) jSEdad.getValue();
+        Mantenimiento mantenimiento = new Mantenimiento(motivo, dias);
+        Maquina maquina = controller.maquinaFuerdaDeServicio(fila, columna, mantenimiento);
+        if (maquina != null) {
+            JOptionPane.showMessageDialog(null, "Maquina en mantenimiento po " + dias + "días");
+        }else{
+            JOptionPane.showMessageDialog(null, "hay un error");
+        }
+        
+    }//GEN-LAST:event_btnCrearMantenimientoActionPerformed
+
+    public void limpiar() {
+        txtId.setText("");
+        txtPrecio.setText("");
+        txtTipoDeJuego.setText("");
+        cbGenero.setSelectedIndex(0);
+        jSEdad.setValue(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

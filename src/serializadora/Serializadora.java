@@ -13,7 +13,6 @@ import modelo.Maquina;
 import modelo.Usuario;
 import util.ILista;
 import util.Lista;
-
 /**
  *
  * @author nataliasabogalrada
@@ -22,7 +21,7 @@ public class Serializadora {
 
     private static final Serializadora instance = new Serializadora();
     
-    private Lista<Usuario> listaUsuarios;
+    private ILista<Usuario> listaUsuarios;
 
     private Maquina[][] maquinas;
 
@@ -39,7 +38,7 @@ public class Serializadora {
         return maquinas;
     }
 
-    public Lista<Usuario> getListaUsuarios() {
+    public ILista<Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
 
@@ -47,7 +46,7 @@ public class Serializadora {
     
     public void escribirMaquina() {
         try {
-            FileOutputStream archivo = new FileOutputStream("src/serializadora/maquinas.dat");
+            FileOutputStream archivo = new FileOutputStream("src/serializadora/matrizMaquinas.dat");
             ObjectOutputStream escritor = new ObjectOutputStream(archivo);
             escritor.writeObject(maquinas);
             escritor.close();
@@ -59,13 +58,13 @@ public class Serializadora {
     public Maquina[][] leerMaquina() {
 
         try {
-            FileInputStream archivo = new FileInputStream("src/serializadora/maquinas.dat");
+            FileInputStream archivo = new FileInputStream("src/serializadora/matrizMaquinas.dat");
             ObjectInputStream lector = new ObjectInputStream(archivo);
             Maquina[][] maq = (Maquina[][]) lector.readObject();
             lector.close();
             return maq;
         } catch (IOException | ClassNotFoundException ex) {
-            //ex.printStackTrace();
+            ex.printStackTrace();
             maquinas = new Maquina[3][4];
             for (int i = 0; i < maquinas.length; i++) {
                 for (int j = 0; j < maquinas[i].length; j++) {
@@ -89,11 +88,11 @@ public class Serializadora {
         }
     }
 
-    public Lista<Usuario> leerListausuarios() {
+    public ILista<Usuario> leerListausuarios() {
         try {
             FileInputStream archivo = new FileInputStream("src/serializadora/usuarios.dat");
             ObjectInputStream lector = new ObjectInputStream(archivo);
-            Lista<Usuario> lista = (Lista<Usuario>) lector.readObject();
+            ILista<Usuario> lista = (ILista<Usuario>) lector.readObject();
             lector.close();
             return lista;
         } catch (IOException | ClassNotFoundException ex) {

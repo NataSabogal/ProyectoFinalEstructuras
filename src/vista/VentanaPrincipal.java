@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import modelo.EstadoMaquina;
 import modelo.Maquina;
 
 /**
@@ -114,14 +115,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
                 //setbounds (posX, posY, ancho, alto)
-
                 if (!(i == 1 && (j == 1 || j == 2))) {
                     extraX = j > 2 ? 100 : 40;
-
                     buttons[i][j] = new JButton();
-                    buttons[1][1] = null;
-                    buttons[1][2] = null;
-
                     buttons[i][j].setBounds(
                             ancho * j + extraX,
                             alto * i + extraY,
@@ -139,33 +135,47 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
                 Maquina maquina = controller.entregarMaquina(i, j);
-                if (maquina.fueraDeServicio()) {
-                    buttons[i][j].setBackground(Color.RED);
-                } else if (maquina.maquinaRegistrada()) {
-                    buttons[i][j].setBackground(Color.GREEN);
-                } else if (maquina.estaDisponible()) {
-                    buttons[i][j].setBackground(Color.WHITE);
+
+                if (buttons[i][j] != null) {
+                    if (controller.estaFueraDeServicio(i, j)) {
+                        buttons[i][j].setBackground(Color.RED);
+
+                    } else if (controller.estaRegistrada(i, j)) {
+                        buttons[i][j].setBackground(Color.GREEN);
+                        Maquina m = controller.entregarMaquina(i, j);
+                        buttons[i][j].setText(m.getTipoDeJuego());
+
+                    } else if (controller.isDisponible(i, j)) {
+                        buttons[i][j].setBackground(Color.WHITE);
+                    }
                 }
+
             }
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e
+    ) {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
                 if (e.getSource().equals(buttons[i][j])) {
                     int fila = i;
                     int columna = j;
                     if (controller.isDisponible(fila, columna)) {
-                        VentanaRegistroMaquina register = new VentanaRegistroMaquina();
+                        VentanaRegistroMaquina register = new VentanaRegistroMaquina(fila, columna);
                         register.setVisible(true);
                         register.setLocationRelativeTo(null);
                         this.dispose();
                     } else if (controller.estaFueraDeServicio(fila, columna)) {
 
+                        VentanaMotivoFueraServicio fs = new VentanaMotivoFueraServicio();
+                        fs.setVisible(true);
+                        fs.setLocationRelativeTo(null);
+                        this.dispose();
+
                     } else {
-                        VentanaDisponibilidadMaquina disponibilidad = new VentanaDisponibilidadMaquina();
+                        VentanaDisponibilidadMaquina disponibilidad = new VentanaDisponibilidadMaquina(fila, columna);
                         disponibilidad.setVisible(true);
                         disponibilidad.setLocationRelativeTo(null);
                         this.dispose();

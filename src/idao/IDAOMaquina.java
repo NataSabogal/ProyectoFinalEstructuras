@@ -6,6 +6,7 @@ package idao;
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import modelo.Mantenimiento;
 import modelo.Maquina;
 
 /**
@@ -29,5 +30,7 @@ public interface IDAOMaquina {
     public boolean estaRegistrada (int fila, int columna);
     
     public boolean estaFueraDeServicio (int fila, int columna);
+    
+    public Maquina maquinaFuerdaDeServicio(int fila, int columna, Mantenimiento mantenimiento);
 
 }

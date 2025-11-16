@@ -9,7 +9,7 @@ import modelo.Cliente;
 import modelo.Rol;
 import modelo.Usuario;
 import serializadora.Serializadora;
-import util.Lista;
+import util.ILista;
 
 /**
  *
@@ -17,26 +17,30 @@ import util.Lista;
  */
 public class DAOUsuario implements IDAOUsuario {
 
-    Lista<Usuario> listaUsuarios;
+    ILista<Usuario> listaUsuarios;
 
     public DAOUsuario() {
         listaUsuarios = Serializadora.getInstance().getListaUsuarios();
+        verificarAdmin();
     }
 
-    Usuario admin = new Usuario("123", "Natalia", "320", "123", "123", Rol.ADMINISTRADOR);
+    private void verificarAdmin() {
+        if (listaUsuarios.size() == 0) {
+            Usuario admin = new Usuario("123", "Natalia", "320", "123", "123", Rol.ADMINISTRADOR);
+            listaUsuarios.add(admin);
+            Serializadora.getInstance().escribirListaUsuarios();
+        }
+    }
 
     @Override
     public Usuario login(String usuario, String contrasenia) {
-        if (usuario.equals(admin.getUsuario()) && contrasenia.equals(admin.getPassword())) {
-            return admin;
-        } else {
-            for (int i = 0; i < listaUsuarios.size(); i++) {
-                if (listaUsuarios.get(i).getUsuario().equals(usuario) && listaUsuarios.get(i).getPassword().equals(contrasenia)) {
-                    return listaUsuarios.get(i);
-                }
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            if (listaUsuarios.get(i).getUsuario().equals(usuario)
+                    && listaUsuarios.get(i).getPassword().equals(contrasenia)) {
+                return listaUsuarios.get(i);
             }
-            return null;
         }
+        return null;
     }
 
     @Override
@@ -53,7 +57,7 @@ public class DAOUsuario implements IDAOUsuario {
 
     @Override
     public Usuario buscarCliente(String cedula) {
-         for (int i = 0; i < listaUsuarios.size(); i++) {
+        for (int i = 0; i < listaUsuarios.size(); i++) {
             if (listaUsuarios.get(i).getCedula().equals(cedula)) {
                 return listaUsuarios.get(i);
             }

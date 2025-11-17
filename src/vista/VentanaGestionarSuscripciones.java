@@ -4,7 +4,11 @@
  */
 package vista;
 
+import controlador.ControladorSuscripciones;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import modelo.Cliente;
+import modelo.Usuario;
 
 /**
  *
@@ -14,11 +18,15 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaGestionarSuscripciones.class.getName());
 
+    ControladorSuscripciones controller;
+
     /**
      * Creates new form VentanaGestionarSuscripciones
      */
     public VentanaGestionarSuscripciones() {
         initComponents();
+        this.controller = new ControladorSuscripciones();
+
         this.setLocationRelativeTo(null);
         fechaInicial.setDate(new Date());
         fechaInicial.setEnabled(false);
@@ -39,7 +47,7 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         btnBuscarCliente = new javax.swing.JButton();
         cbTipoSuscri = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
         lblId = new javax.swing.JLabel();
         lblTipo = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
@@ -98,6 +106,8 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
 
         jLabel15.setText("Nombre Cliente:");
 
+        txtNombreCliente.setEditable(false);
+
         txtHorasPlan.setEditable(false);
 
         lblHoras.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
@@ -121,7 +131,7 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
                         .addGap(69, 69, 69)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelLayout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                                 .addComponent(btnBuscarCliente))
                             .addGroup(panelLayout.createSequentialGroup()
@@ -165,7 +175,7 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
@@ -185,8 +195,7 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
                         .addGap(16, 16, 16))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                        .addComponent(fechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHoras)
@@ -222,8 +231,20 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
+        if (!txtCedula.getText().isEmpty()) {
+            String cedula = txtCedula.getText();
+            Usuario cliente = controller.buscarCliente(cedula);
+            if (cliente != null) {
+                txtNombreCliente.setText(cliente.getNombre());
+                camposVisibles();
+            }else{
+                JOptionPane.showMessageDialog(null, "cliente no registrado");
+            }
 
-        camposVisibles();
+        } else {
+            JOptionPane.showMessageDialog(null, "Asegurese de Digitar la cédula del cliente");
+        }
+
         // cbTipoPropiedad.setSelectedItem(inm.getTipo().toString());
 
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
@@ -315,13 +336,13 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser fechaInicial;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHoras;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JPanel panel;
+    private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtHorasPlan;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombreCliente;

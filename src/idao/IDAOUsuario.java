@@ -6,6 +6,7 @@ package idao;
 
 import modelo.Cliente;
 import modelo.Usuario;
+import util.ILista;
 
 /**
  *
@@ -18,4 +19,6 @@ public interface IDAOUsuario {
     public void agregaCliente(Cliente cliente);
     
     public Usuario buscarCliente(String cedula);
+    
+    public ILista<Usuario> getListaUsuarios ();
 }

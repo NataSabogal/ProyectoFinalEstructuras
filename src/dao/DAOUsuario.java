@@ -51,7 +51,6 @@ public class DAOUsuario implements IDAOUsuario {
             Serializadora.getInstance().escribirListaUsuarios();
             return;
         }
-        throw new RuntimeException("El usuario no existe");
 
     }
 
@@ -63,6 +62,11 @@ public class DAOUsuario implements IDAOUsuario {
             }
         }
         return null;
+    }
+
+    @Override
+    public ILista<Usuario> getListaUsuarios() {
+        return listaUsuarios;
     }
 
 }

@@ -82,17 +82,17 @@
                       <Group type="102" attributes="0">
                           <Component id="lblTalla2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtPrecio2" min="-2" pref="162" max="-2" attributes="0"/>
+                          <Component id="txtPassword" min="-2" pref="162" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtPrecio3" min="-2" pref="162" max="-2" attributes="0"/>
+                          <Component id="txtUsuario" min="-2" pref="162" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="126" max="32767" attributes="0"/>
-                          <Component id="txtPrecio" min="-2" pref="162" max="-2" attributes="0"/>
+                          <Component id="txtEdad" min="-2" pref="162" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -104,9 +104,9 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="txtCedula" max="32767" attributes="0"/>
-                                  <Component id="txtTipoDeJuego" alignment="0" pref="162" max="32767" attributes="0"/>
+                                  <Component id="txtNombre" alignment="0" pref="162" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="txtPrecio1" alignment="1" min="-2" pref="162" max="-2" attributes="0"/>
+                              <Component id="txtTelefono" alignment="1" min="-2" pref="162" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -135,28 +135,28 @@
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="txtTipoDeJuego" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNombre" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblTalla" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPrecio1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPrecio" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtEdad" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPrecio3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblTalla2" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPrecio2" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="btnRegistrar" min="-2" max="-2" attributes="0"/>
@@ -192,9 +192,9 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtCedula">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtTipoDeJuego">
+        <Component class="javax.swing.JTextField" name="txtNombre">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtPrecio">
+        <Component class="javax.swing.JTextField" name="txtEdad">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -220,11 +220,11 @@
             <Property name="text" type="java.lang.String" value="Contrase&#xf1;a:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtPrecio1">
+        <Component class="javax.swing.JTextField" name="txtTelefono">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtPrecio2">
+        <Component class="javax.swing.JTextField" name="txtPassword">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtPrecio3">
+        <Component class="javax.swing.JTextField" name="txtUsuario">
         </Component>
         <Component class="javax.swing.JButton" name="btnRegistrar">
           <Properties>

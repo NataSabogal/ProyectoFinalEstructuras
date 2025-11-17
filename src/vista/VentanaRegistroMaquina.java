@@ -30,9 +30,17 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
         panelMantenimiento.setVisible(false);
         this.setLocationRelativeTo(null);
         controller = new ControladorMaquina();
+        botonMantenimiento();
 
     }
 
+    public void botonMantenimiento(){
+        if (controller.estaRegistrada(fila, columna)) {
+            btnMantenimiento.setVisible(true);
+        }else{
+            btnMantenimiento.setVisible(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,7 +65,7 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnMantenimiento = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
         btnTiempo = new javax.swing.JButton();
         panelMantenimiento = new javax.swing.JPanel();
@@ -111,10 +119,10 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Darle Mantenimiento");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnMantenimiento.setText("Darle Mantenimiento");
+        btnMantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnMantenimientoActionPerformed(evt);
             }
         });
 
@@ -172,7 +180,7 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
                                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMantenimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnTiempo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -207,7 +215,7 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(142, 142, 142)
-                        .addComponent(jButton1)
+                        .addComponent(btnMantenimiento)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -297,37 +305,54 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        String id = txtId.getText();
-        Maquina maquina = controller.buscarMaquina(fila, columna, id);
-        if (maquina != null) {
-            txtPrecio.setText(maquina.getValorPorHora() + "");
-            txtTipoDeJuego.setText(maquina.getTipoDeJuego());
-            cbGenero.setSelectedItem(maquina.getGenero());
-            jSEdad.setValue(maquina.getEdadMinima());
+        if (!txtId.getText().isEmpty()) {
 
+            String id = txtId.getText();
+            Maquina maquina = controller.buscarMaquina(fila, columna, id);
+            if (maquina != null) {
+                txtPrecio.setText(maquina.getValorPorHora() + "");
+                txtTipoDeJuego.setText(maquina.getTipoDeJuego());
+                cbGenero.setSelectedItem(maquina.getGenero());
+                jSEdad.setValue(maquina.getEdadMinima());
+                JOptionPane.showMessageDialog(null, "Se encontró");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "No se encontró");
+            JOptionPane.showMessageDialog(null, "Asegurese de digitar el ID");
         }
+
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        String genero = (String) cbGenero.getSelectedItem();
-        String id = txtId.getText();
-        String nombre = txtTipoDeJuego.getText();
-        int edadMinima = (Integer) jSEdad.getValue();
-        double valorPorHora = Double.parseDouble(txtPrecio.getText());
-        Maquina maquina = new Maquina(id, nombre, genero, edadMinima, valorPorHora);
-        controller.editarMaquina(fila, columna, maquina);
-        limpiar();
+        try {
+            String genero = (String) cbGenero.getSelectedItem();
+            String id = txtId.getText();
+            String nombre = txtTipoDeJuego.getText();
+            int edadMinima = (Integer) jSEdad.getValue();
+            double valorPorHora = Double.parseDouble(txtPrecio.getText());
+            Maquina maquina = new Maquina(id, nombre, genero, edadMinima, valorPorHora);
+            controller.editarMaquina(fila, columna, maquina);
+            limpiar();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
 
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenimientoActionPerformed
         // TODO add your handling code here:
-        panelMantenimiento.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (!txtId.getText().isEmpty() && !txtTipoDeJuego.getText().isEmpty()) {
+            panelMantenimiento.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Asegurese de buscar primero la maquina ");
+        }
+
+    }//GEN-LAST:event_btnMantenimientoActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         VentanaPrincipalAdmin principal = new VentanaPrincipalAdmin();
@@ -355,6 +380,7 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
             Maquina maquina = new Maquina(id, nombre, genero, edadMinima, valorPorHora);
             controller.agregarMaquina(fila, columna, maquina);
             limpiar();
+            botonMantenimiento();
             JOptionPane.showMessageDialog(null, "Maquina agregada correctamente!!!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -370,11 +396,11 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
         Mantenimiento mantenimiento = new Mantenimiento(motivo, dias);
         Maquina maquina = controller.maquinaFuerdaDeServicio(fila, columna, mantenimiento);
         if (maquina != null) {
-            JOptionPane.showMessageDialog(null, "Maquina en mantenimiento po " + dias + "días");
-        }else{
+            JOptionPane.showMessageDialog(null, "Maquina en mantenimiento por " + (dias+1 ) + " días");
+        } else {
             JOptionPane.showMessageDialog(null, "hay un error");
         }
-        
+
     }//GEN-LAST:event_btnCrearMantenimientoActionPerformed
 
     public void limpiar() {
@@ -391,9 +417,9 @@ public class VentanaRegistroMaquina extends javax.swing.JFrame {
     private javax.swing.JButton btnCrearMantenimiento;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnMantenimiento;
     private javax.swing.JButton btnTiempo;
     private javax.swing.JComboBox<String> cbGenero;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

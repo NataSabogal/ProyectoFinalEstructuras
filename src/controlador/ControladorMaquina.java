@@ -49,4 +49,10 @@ public class ControladorMaquina {
 
     }
 
+    public boolean estaRegistrada(int fila, int columna) {
+        return dao.estaRegistrada(fila, columna);
+    }
+    
+    
+
 }

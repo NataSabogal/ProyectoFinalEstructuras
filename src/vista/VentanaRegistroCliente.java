@@ -4,7 +4,10 @@
  */
 package vista;
 
+import controlador.ControladorRegistroCliente;
 import javax.swing.JOptionPane;
+import modelo.Cliente;
+import modelo.Rol;
 
 /**
  *
@@ -14,11 +17,15 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaRegistroCliente.class.getName());
 
+    ControladorRegistroCliente controller;
+
     /**
      * Creates new form VentanaRegistroCliente
      */
     public VentanaRegistroCliente() {
         initComponents();
+        this.controller = new ControladorRegistroCliente();
+
         this.setLocationRelativeTo(null);
     }
 
@@ -39,14 +46,14 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         lblTalla = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
-        txtTipoDeJuego = new javax.swing.JTextField();
-        txtPrecio = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtEdad = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblTalla2 = new javax.swing.JLabel();
-        txtPrecio1 = new javax.swing.JTextField();
-        txtPrecio2 = new javax.swing.JTextField();
-        txtPrecio3 = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
 
@@ -105,15 +112,15 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblTalla2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtPrecio2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtPrecio3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -123,8 +130,8 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtCedula)
-                                .addComponent(txtTipoDeJuego, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
-                            .addComponent(txtPrecio1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(36, 36, 36))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(140, 140, 140)
@@ -145,24 +152,24 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
                     .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtTipoDeJuego, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTalla)
-                    .addComponent(txtPrecio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtPrecio3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTalla2)
-                    .addComponent(txtPrecio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(btnRegistrar)
                 .addContainerGap(39, Short.MAX_VALUE))
@@ -186,13 +193,30 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-        //todo para registrarlo
+        if (!txtCedula.getText().isEmpty() && !txtEdad.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtTelefono.getText().isEmpty() && !txtUsuario.getText().isEmpty()) {
+            try {
 
-        JOptionPane.showMessageDialog(null, "Cliente registrado");
-        VentanaLogin login = new VentanaLogin();
-        login.setVisible(true);
-        login.setLocationRelativeTo(null);
-        this.dispose();
+                String nombre = txtNombre.getText();
+                String cedula = txtCedula.getText();
+                String telefono = txtTelefono.getText();
+                int edad = Integer.parseInt(txtEdad.getText());
+                String usuario = txtUsuario.getText();
+                String contrasenia = txtPassword.getText();
+                Cliente cliente = new Cliente(edad, cedula, nombre, telefono, usuario, contrasenia, Rol.CLIENTE);
+                controller.agregaCliente(cliente);
+                JOptionPane.showMessageDialog(null, "Cliente registrado");
+                limpiarCampos();
+                VentanaLogin login = new VentanaLogin();
+                login.setVisible(true);
+                login.setLocationRelativeTo(null);
+                this.dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Asegurese de digitar todos los campos");
+        }
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
@@ -201,6 +225,15 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
         principal.setLocationRelativeTo(this);
         this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
+
+    public void limpiarCampos() {
+        txtCedula.setText("");
+        txtEdad.setText("");
+        txtNombre.setText("");
+        txtPassword.setText("");
+        txtTelefono.setText("");
+        txtUsuario.setText("");
+    }
 
     /**
      * @param args the command line arguments
@@ -241,10 +274,10 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblTalla1;
     private javax.swing.JLabel lblTalla2;
     private javax.swing.JTextField txtCedula;
-    private javax.swing.JTextField txtPrecio;
-    private javax.swing.JTextField txtPrecio1;
-    private javax.swing.JTextField txtPrecio2;
-    private javax.swing.JTextField txtPrecio3;
-    private javax.swing.JTextField txtTipoDeJuego;
+    private javax.swing.JTextField txtEdad;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

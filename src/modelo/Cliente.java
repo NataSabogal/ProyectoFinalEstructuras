@@ -18,12 +18,12 @@ public class Cliente extends Usuario implements Serializable {
     private Lista<Reserva> reservasSinSuscripcion;
     private double totalInvertido;
 
-    public Cliente(int edad, double totalInvertido, String cedula, String nombre, String telefono, String usuario, String password, Rol rol) {
+    public Cliente(int edad, String cedula, String nombre, String telefono, String usuario, String password, Rol rol) {
         super(cedula, nombre, telefono, usuario, password, rol);
         this.edad = edad;
         this.misSuscripciones = new Lista<>();
         this.reservasSinSuscripcion = new Lista<>();
-        this.totalInvertido = totalInvertido;
+        
     }
 
     public int getEdad() {

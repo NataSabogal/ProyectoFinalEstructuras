@@ -7,6 +7,7 @@ package vista;
 import controlador.ControladorLogIn;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import modelo.Cliente;
 import modelo.Rol;
 import modelo.Usuario;
 
@@ -199,7 +200,11 @@ public class VentanaLogin extends javax.swing.JFrame {
                 admin.setLocationRelativeTo(null);
                 this.dispose();
             } else if (aux.getRol() == Rol.CLIENTE) {
-                
+                Cliente client = (Cliente) aux;
+                VentanaPrincipalCliente cliente = new VentanaPrincipalCliente(client);
+                cliente.setVisible(true);
+                cliente.setLocationRelativeTo(null);
+                this.dispose();
             }
         }else{
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");

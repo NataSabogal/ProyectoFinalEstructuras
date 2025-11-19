@@ -5,9 +5,13 @@
 package vista;
 
 import controlador.ControladorSuscripciones;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
+import modelo.Rol;
+import modelo.Suscripcion;
+import modelo.TipoSuscripcion;
 import modelo.Usuario;
 
 /**
@@ -30,7 +34,12 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         fechaInicial.setDate(new Date());
         fechaInicial.setEnabled(false);
-        desaparecerCampos();
+        btnCrearSuscripcion.setVisible(false);
+        panelCrearSuscripcion.setVisible(false);
+        panelSuscripcionActiva.setVisible(false);
+        configurarCbUno();
+        configurarCbDos();
+        
     }
 
     /**
@@ -46,20 +55,32 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
         btnAtras = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         btnBuscarCliente = new javax.swing.JButton();
-        cbTipoSuscri = new javax.swing.JComboBox<>();
         txtCedula = new javax.swing.JTextField();
-        lblId = new javax.swing.JLabel();
-        lblTipo = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        txtNombreCliente = new javax.swing.JTextField();
+        btnCrearSuscripcion = new javax.swing.JButton();
+        panelCrearSuscripcion = new javax.swing.JPanel();
         txtPrecioBase = new javax.swing.JTextField();
         lblPrecio = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
         fechaInicial = new com.toedter.calendar.JDateChooser();
-        jLabel15 = new javax.swing.JLabel();
-        txtNombreCliente = new javax.swing.JTextField();
         txtHorasPlan = new javax.swing.JTextField();
         lblHoras = new javax.swing.JLabel();
+        cbTipoSuscri = new javax.swing.JComboBox<>();
+        lblId = new javax.swing.JLabel();
+        lblTipo = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
         btnCrear = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        panelSuscripcionActiva = new javax.swing.JPanel();
+        validoHasta = new com.toedter.calendar.JDateChooser();
+        txtHorasRestantes = new javax.swing.JTextField();
+        lblHoras1 = new javax.swing.JLabel();
+        lblFecha1 = new javax.swing.JLabel();
+        cbTipoSuscri2 = new javax.swing.JComboBox<>();
+        lblTipo1 = new javax.swing.JLabel();
+        txtHorasUsadas = new javax.swing.JTextField();
+        lblHoras2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +102,80 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setText("Nombre Cliente:");
+
+        txtNombreCliente.setEditable(false);
+
+        btnCrearSuscripcion.setText("Crear Suscripción");
+        btnCrearSuscripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearSuscripcionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(91, 91, 91)
+                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(86, 86, 86)
+                        .addComponent(txtNombreCliente)))
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(126, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                                .addComponent(btnCrearSuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(btnBuscarCliente)
+                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(18, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCrearSuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+
+        panelCrearSuscripcion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Crear Suscripción ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Shree Devanagari 714", 1, 24))); // NOI18N
+
+        lblPrecio.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
+        lblPrecio.setText("Precio Base:");
+
+        lblFecha.setText("Fecha:");
+
+        txtHorasPlan.setEditable(false);
+
+        lblHoras.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
+        lblHoras.setText("Horas Incluidas:");
+
         cbTipoSuscri.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Basica", "VIP" }));
         cbTipoSuscri.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -99,125 +194,186 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
         lblTipo.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
         lblTipo.setText("Tipo de Suscripción:");
 
-        lblPrecio.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
-        lblPrecio.setText("Precio Base:");
-
-        lblFecha.setText("Fecha:");
-
-        jLabel15.setText("Nombre Cliente:");
-
-        txtNombreCliente.setEditable(false);
-
-        txtHorasPlan.setEditable(false);
-
-        lblHoras.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
-        lblHoras.setText("Horas Incluidas:");
-
         btnCrear.setText("Crear");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-        panel.setLayout(panelLayout);
-        panelLayout.setHorizontalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTipo)
-                            .addComponent(jLabel13)
-                            .addComponent(lblId)
-                            .addComponent(lblFecha))
-                        .addGap(69, 69, 69)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelLayout.createSequentialGroup()
-                                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                                .addComponent(btnBuscarCliente))
-                            .addGroup(panelLayout.createSequentialGroup()
-                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(panelLayout.createSequentialGroup()
-                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jButton1.setText("Ver Cobro Fin de Mes");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelCrearSuscripcionLayout = new javax.swing.GroupLayout(panelCrearSuscripcion);
+        panelCrearSuscripcion.setLayout(panelCrearSuscripcionLayout);
+        panelCrearSuscripcionLayout.setHorizontalGroup(
+            panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCrearSuscripcionLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCrearSuscripcionLayout.createSequentialGroup()
+                        .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                            .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblTipo)
+                                .addComponent(lblId)
+                                .addComponent(lblFecha)))
+                        .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelCrearSuscripcionLayout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbTipoSuscri, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelLayout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(86, 86, 86)
-                                .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fechaInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
+                            .addGroup(panelCrearSuscripcionLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelCrearSuscripcionLayout.createSequentialGroup()
+                        .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPrecio)
                             .addComponent(lblHoras))
-                        .addGap(50, 50, 50)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(94, 94, 94)
+                        .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtHorasPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPrecioBase, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtPrecioBase, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
-        panelLayout.setVerticalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(btnAtras)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        panelCrearSuscripcionLayout.setVerticalGroup(
+            panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCrearSuscripcionLayout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblId)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbTipoSuscri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTipo))
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelLayout.createSequentialGroup()
+                .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCrearSuscripcionLayout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(lblFecha)
                         .addGap(16, 16, 16))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCrearSuscripcionLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHoras)
                     .addComponent(txtHorasPlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtPrecioBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPrecio))
+                .addGap(39, 39, 39)
+                .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPrecio)
+                    .addComponent(txtPrecioBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelCrearSuscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCrear)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelSuscripcionActiva.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Suscripción Activa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Shree Devanagari 714", 1, 24))); // NOI18N
+
+        txtHorasRestantes.setEditable(false);
+
+        lblHoras1.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
+        lblHoras1.setText("Horas Restantes:");
+
+        lblFecha1.setText("Valido Hasta:");
+
+        cbTipoSuscri2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Basica", "VIP" }));
+        cbTipoSuscri2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbTipoSuscri2MouseClicked(evt);
+            }
+        });
+        cbTipoSuscri2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoSuscri2ActionPerformed(evt);
+            }
+        });
+
+        lblTipo1.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
+        lblTipo1.setText("Tipo de Suscripción:");
+
+        txtHorasUsadas.setEditable(false);
+
+        lblHoras2.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
+        lblHoras2.setText("Horas Usadas:");
+
+        javax.swing.GroupLayout panelSuscripcionActivaLayout = new javax.swing.GroupLayout(panelSuscripcionActiva);
+        panelSuscripcionActiva.setLayout(panelSuscripcionActivaLayout);
+        panelSuscripcionActivaLayout.setHorizontalGroup(
+            panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSuscripcionActivaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSuscripcionActivaLayout.createSequentialGroup()
+                        .addGroup(panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTipo1)
+                            .addComponent(lblFecha1))
+                        .addGap(69, 69, 69)
+                        .addGroup(panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(validoHasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbTipoSuscri2, 0, 131, Short.MAX_VALUE)))
+                    .addGroup(panelSuscripcionActivaLayout.createSequentialGroup()
+                        .addComponent(lblHoras1)
+                        .addGap(94, 94, 94)
+                        .addComponent(txtHorasRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelSuscripcionActivaLayout.createSequentialGroup()
+                        .addComponent(lblHoras2)
+                        .addGap(94, 94, 94)
+                        .addComponent(txtHorasUsadas, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        panelSuscripcionActivaLayout.setVerticalGroup(
+            panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSuscripcionActivaLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbTipoSuscri2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTipo1))
                 .addGap(33, 33, 33)
-                .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGroup(panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFecha1)
+                    .addComponent(validoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHoras2)
+                    .addComponent(txtHorasUsadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHoras1)
+                    .addComponent(txtHorasRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(panelSuscripcionActiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(panelCrearSuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelCrearSuscripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSuscripcionActiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         pack();
@@ -236,8 +392,21 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
             Usuario cliente = controller.buscarCliente(cedula);
             if (cliente != null) {
                 txtNombreCliente.setText(cliente.getNombre());
-                camposVisibles();
-            }else{
+                Usuario usuarioC = cliente;
+                if (usuarioC instanceof Cliente) {
+                    Cliente clien = (Cliente) usuarioC;
+                    Suscripcion activa = controller.obtenerSuscripcionActiva(clien);
+                    if (activa != null) {
+                        panelSuscripcionActiva.setVisible(true);
+                        //txtHorasUsadas.setText(clien.get);
+                    } else {
+                        btnCrearSuscripcion.setVisible(true);
+
+                    }
+                    //si ese cliente que se busco tiene suscripciones activo mostar un JOption y un boton que diga como "Este cliente ya tiene una suscripción activa" y deshabilitar el boton de nueva suscripcion 
+
+                }
+            } else {
                 JOptionPane.showMessageDialog(null, "cliente no registrado");
             }
 
@@ -245,7 +414,6 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Asegurese de Digitar la cédula del cliente");
         }
 
-        // cbTipoPropiedad.setSelectedItem(inm.getTipo().toString());
 
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
@@ -257,6 +425,42 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
         // TODO add your handling code here:
         horaIncluidasTipo();
     }//GEN-LAST:event_cbTipoSuscriActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbTipoSuscri2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbTipoSuscri2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoSuscri2MouseClicked
+
+    private void cbTipoSuscri2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoSuscri2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoSuscri2ActionPerformed
+
+    private void btnCrearSuscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSuscripcionActionPerformed
+        // TODO add your handling code here:
+        panelCrearSuscripcion.setVisible(true);
+    }//GEN-LAST:event_btnCrearSuscripcionActionPerformed
+
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        // TODO add your handling code here:
+        String id = txtId.getText();
+        TipoSuscripcion tipo = TipoSuscripcion.valueOf(cbTipoSuscri.getSelectedItem().toString());
+        Date fecha = fechaInicial.getDate();
+        LocalDate fechaInicial = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        int horasIncluidas = Integer.parseInt(txtHorasPlan.getText());
+        double precioBase = Double.parseDouble(txtPrecioBase.getText());
+        Suscripcion suscripcion = new Suscripcion(id, tipo, horasIncluidas, fechaInicial, precioBase);
+        String cedula = txtCedula.getText();
+        boolean aux = controller.crearSuscripcion(cedula, suscripcion);
+        if (aux) {
+            JOptionPane.showMessageDialog(null, "Suscripcion creada");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo crear la suscripcion");
+        }
+
+    }//GEN-LAST:event_btnCrearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,37 +487,21 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new VentanaGestionarSuscripciones().setVisible(true));
     }
 
-    public void camposVisibles() {
-        if (!txtNombreCliente.getText().isEmpty()) {
-            txtId.setVisible(true);
-            txtPrecioBase.setVisible(true);
-            fechaInicial.setVisible(true);
-            cbTipoSuscri.setVisible(true);
-            lblFecha.setVisible(true);
-            lblPrecio.setVisible(true);
-            lblTipo.setVisible(true);
-            lblId.setVisible(true);
-            txtHorasPlan.setVisible(true);
-            lblHoras.setVisible(true);
-            btnCrear.setVisible(true);
-        }
+
+    public void configurarCbUno (){
+        cbTipoSuscri.removeAllItems();
+        cbTipoSuscri.addItem("Seleccionar");
+        cbTipoSuscri.addItem("Básica");
+        cbTipoSuscri.addItem("VIP");
     }
-
-    public void desaparecerCampos() {
-
-        txtId.setVisible(false);
-        txtPrecioBase.setVisible(false);
-        fechaInicial.setVisible(false);
-        cbTipoSuscri.setVisible(false);
-        lblFecha.setVisible(false);
-        lblPrecio.setVisible(false);
-        lblTipo.setVisible(false);
-        lblId.setVisible(false);
-        txtHorasPlan.setVisible(false);
-        lblHoras.setVisible(false);
-        btnCrear.setVisible(false);
+    
+    public void configurarCbDos (){
+        cbTipoSuscri2.removeAllItems();
+        cbTipoSuscri2.addItem("Seleccionar");
+        cbTipoSuscri2.addItem("Básica");
+        cbTipoSuscri2.addItem("VIP");
     }
-
+    
     public void horaIncluidasTipo() {
         int indiceSeleccionado = cbTipoSuscri.getSelectedIndex();
 
@@ -332,20 +520,32 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnCrearSuscripcion;
     private javax.swing.JComboBox<String> cbTipoSuscri;
+    private javax.swing.JComboBox<String> cbTipoSuscri2;
     private com.toedter.calendar.JDateChooser fechaInicial;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblFecha1;
     private javax.swing.JLabel lblHoras;
+    private javax.swing.JLabel lblHoras1;
+    private javax.swing.JLabel lblHoras2;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblTipo;
+    private javax.swing.JLabel lblTipo1;
     private javax.swing.JPanel panel;
+    private javax.swing.JPanel panelCrearSuscripcion;
+    private javax.swing.JPanel panelSuscripcionActiva;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtHorasPlan;
+    private javax.swing.JTextField txtHorasRestantes;
+    private javax.swing.JTextField txtHorasUsadas;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtPrecioBase;
+    private com.toedter.calendar.JDateChooser validoHasta;
     // End of variables declaration//GEN-END:variables
 }

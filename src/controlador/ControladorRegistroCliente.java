@@ -4,8 +4,8 @@
  */
 package controlador;
 
-import dao.DAOUsuario;
-import idao.IDAOUsuario;
+import dao.DAOCliente;
+import idao.IDAOCliente;
 import modelo.Cliente;
 import modelo.Usuario;
 
@@ -15,10 +15,10 @@ import modelo.Usuario;
  */
 public class ControladorRegistroCliente {
 
-    IDAOUsuario dao;
+    IDAOCliente dao;
 
     public ControladorRegistroCliente() {
-        dao = new DAOUsuario();
+        dao = new DAOCliente();
 
     }
 

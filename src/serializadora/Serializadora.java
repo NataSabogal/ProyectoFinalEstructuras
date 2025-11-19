@@ -13,6 +13,7 @@ import modelo.Maquina;
 import modelo.Usuario;
 import util.ILista;
 import util.Lista;
+
 /**
  *
  * @author nataliasabogalrada
@@ -20,7 +21,7 @@ import util.Lista;
 public class Serializadora {
 
     private static final Serializadora instance = new Serializadora();
-    
+
     private ILista<Usuario> listaUsuarios;
 
     private Maquina[][] maquinas;
@@ -42,8 +43,6 @@ public class Serializadora {
         return listaUsuarios;
     }
 
-    
-    
     public void escribirMaquina() {
         try {
             FileOutputStream archivo = new FileOutputStream("src/serializadora/matrizMaquinas.dat");
@@ -75,7 +74,7 @@ public class Serializadora {
             return maquinas;
         }
     }
-    
+
     public void escribirListaUsuarios() {
         try {
             FileOutputStream archivo = new FileOutputStream("src/serializadora/usuarios.dat");

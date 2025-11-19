@@ -12,9 +12,12 @@ import util.ILista;
  *
  * @author nataliasabogalrada
  */
-public interface IDAOUsuario {
-
-    public Usuario login(String usuario, String contrasenia);
-
-    public ILista<Usuario> getListaUsuarios ();
+public interface IDAOCliente {
+    
+    public void agregaCliente(Cliente cliente);
+    
+    public Cliente buscarCliente(String cedula);
+    
+    public ILista<Cliente> getListaUsuarios ();
+    
 }

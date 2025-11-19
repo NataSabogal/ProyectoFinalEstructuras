@@ -5,6 +5,7 @@
 package vista;
 
 import controlador.ControladorPrincipal;
+import controlador.ControladorRegistroCliente;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,14 +22,16 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName());
     private JButton[][] buttons;
     private ControladorPrincipal controller;
+    private boolean isAdmin;
 
     /**
      * Creates new form VentanaPrincipal
      */
-    public VentanaPrincipal() {
+    public VentanaPrincipal(boolean isAdmin) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.controller = new ControladorPrincipal();
+        this.isAdmin = isAdmin;
         buttons = new JButton[3][4];
         dibujarBotones();
         pintarBotones();
@@ -78,30 +81,30 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaPrincipal().setVisible(true));
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+//            logger.log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(() -> new VentanaPrincipal().setVisible(true));
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel panel;
@@ -162,24 +165,49 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
                 if (e.getSource().equals(buttons[i][j])) {
                     int fila = i;
                     int columna = j;
-                    if (controller.isDisponible(fila, columna)) {
-                        VentanaRegistroMaquina register = new VentanaRegistroMaquina(fila, columna);
-                        register.setVisible(true);
-                        register.setLocationRelativeTo(null);
-                        this.dispose();
-                    } else if (controller.estaFueraDeServicio(fila, columna)) {
+                    if (isAdmin) {
+                        if (controller.isDisponible(fila, columna)) {
 
-                        VentanaMotivoFueraServicio fs = new VentanaMotivoFueraServicio();
-                        fs.setVisible(true);
-                        fs.setLocationRelativeTo(null);
-                        this.dispose();
+                            VentanaRegistroMaquina register = new VentanaRegistroMaquina(fila, columna);
+                            register.setVisible(true);
+                            register.setLocationRelativeTo(null);
+                            this.dispose();
+                        } else if (controller.estaFueraDeServicio(fila, columna)) {
 
+                            VentanaMotivoFueraServicio fs = new VentanaMotivoFueraServicio();
+                            fs.setVisible(true);
+                            fs.setLocationRelativeTo(null);
+                            this.dispose();
+
+                        } else {
+                            VentanaDisponibilidadMaquina disponibilidad = new VentanaDisponibilidadMaquina(fila, columna);
+                            disponibilidad.setVisible(true);
+                            disponibilidad.setLocationRelativeTo(null);
+                            this.dispose();
+
+                        }
                     } else {
-                        VentanaDisponibilidadMaquina disponibilidad = new VentanaDisponibilidadMaquina(fila, columna);
-                        disponibilidad.setVisible(true);
-                        disponibilidad.setLocationRelativeTo(null);
-                        this.dispose();
 
+                        if (controller.isDisponible(fila, columna)) {
+
+                            VentanaVerMaquinaCliente maquina = new VentanaVerMaquinaCliente(fila, columna);
+                            maquina.setVisible(true);
+                            maquina.setLocationRelativeTo(null);
+                            this.dispose();
+                        } else if (controller.estaFueraDeServicio(fila, columna)) {
+
+                            VentanaMotivoFueraServicio fs = new VentanaMotivoFueraServicio();
+                            fs.setVisible(true);
+                            fs.setLocationRelativeTo(null);
+                            this.dispose();
+
+                        } else {
+                            VentanaDisponibilidadMaquina disponibilidad = new VentanaDisponibilidadMaquina(fila, columna);
+                            disponibilidad.setVisible(true);
+                            disponibilidad.setLocationRelativeTo(null);
+                            this.dispose();
+
+                        }
                     }
 
                 }

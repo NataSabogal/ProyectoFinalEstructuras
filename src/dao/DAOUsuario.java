@@ -43,26 +43,6 @@ public class DAOUsuario implements IDAOUsuario {
         return null;
     }
 
-    @Override
-    public void agregaCliente(Cliente cliente) {
-        Usuario aux = buscarCliente(cliente.getCedula());
-        if (aux == null) {
-            listaUsuarios.add(cliente);
-            Serializadora.getInstance().escribirListaUsuarios();
-            return;
-        }
-
-    }
-
-    @Override
-    public Usuario buscarCliente(String cedula) {
-        for (int i = 0; i < listaUsuarios.size(); i++) {
-            if (listaUsuarios.get(i).getCedula().equals(cedula)) {
-                return listaUsuarios.get(i);
-            }
-        }
-        return null;
-    }
 
     @Override
     public ILista<Usuario> getListaUsuarios() {

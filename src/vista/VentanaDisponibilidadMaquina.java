@@ -90,7 +90,7 @@ public class VentanaDisponibilidadMaquina extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtras2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtras2ActionPerformed
-        VentanaPrincipal principal = new VentanaPrincipal();
+        VentanaPrincipal principal = new VentanaPrincipal(true);
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
         this.dispose();

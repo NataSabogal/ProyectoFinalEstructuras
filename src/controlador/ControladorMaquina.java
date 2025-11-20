@@ -52,6 +52,11 @@ public class ControladorMaquina {
     public boolean estaRegistrada(int fila, int columna) {
         return dao.estaRegistrada(fila, columna);
     }
+
+    public Maquina entregarMaquina(int fila, int columna) {
+        return dao.entregarMaquina(fila, columna);
+    }
+    
     
     
 

@@ -11,7 +11,7 @@ import java.time.LocalDate;
  *
  * @author nataliasabogalrada
  */
-public class Reserva implements Serializable {
+    public class Reserva implements Serializable {
     
     private String id;
     private Cliente cliente;

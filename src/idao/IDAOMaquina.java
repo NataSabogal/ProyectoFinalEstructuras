@@ -32,5 +32,12 @@ public interface IDAOMaquina {
     public boolean estaFueraDeServicio (int fila, int columna);
     
     public Maquina maquinaFuerdaDeServicio(int fila, int columna, Mantenimiento mantenimiento);
+    
+    public Mantenimiento mostrarDetalleMantenimiento (int fila, int columna);
+    
+    public boolean mantenimientoFinalizado(int fila, int columna, Mantenimiento mantenimiento);
 
+    public int diasRestantes (int fila, int columna, Mantenimiento mantenimiento);
+    
+    public void actualizarEstadoMantenimiento(int fila, int columna);
 }

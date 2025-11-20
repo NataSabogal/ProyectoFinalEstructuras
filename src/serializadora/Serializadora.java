@@ -50,7 +50,7 @@ public class Serializadora {
             escritor.writeObject(maquinas);
             escritor.close();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         }
     }
 
@@ -63,7 +63,7 @@ public class Serializadora {
             lector.close();
             return maq;
         } catch (IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+           // ex.printStackTrace();
             maquinas = new Maquina[3][4];
             for (int i = 0; i < maquinas.length; i++) {
                 for (int j = 0; j < maquinas[i].length; j++) {

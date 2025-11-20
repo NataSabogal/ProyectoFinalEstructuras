@@ -10,7 +10,7 @@ import modelo.Cliente;
  *
  * @author nataliasabogalrada
  */
-public class VentanaPrincipalCliente extends javax.swing.JFrame {
+ public class VentanaPrincipalCliente extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipalCliente.class.getName());
 
@@ -126,7 +126,7 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
 
     private void btnMaquinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaquinasActionPerformed
         // TODO add your handling code here:
-        VentanaPrincipal prin = new VentanaPrincipal(false);
+        VentanaPrincipal prin = new VentanaPrincipal(false, cliente);
         prin.setVisible(true);
         prin.setLocationRelativeTo(null);
         this.dispose();

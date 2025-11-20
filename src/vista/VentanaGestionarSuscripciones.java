@@ -34,12 +34,12 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         fechaInicial.setDate(new Date());
         fechaInicial.setEnabled(false);
+        configurarCbUno();
+        configurarCbDos();
         btnCrearSuscripcion.setVisible(false);
         panelCrearSuscripcion.setVisible(false);
         panelSuscripcionActiva.setVisible(false);
-        configurarCbUno();
-        configurarCbDos();
-        
+
     }
 
     /**
@@ -74,7 +74,7 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         panelSuscripcionActiva = new javax.swing.JPanel();
         validoHasta = new com.toedter.calendar.JDateChooser();
-        txtHorasRestantes = new javax.swing.JTextField();
+        txtCobroFinal = new javax.swing.JTextField();
         lblHoras1 = new javax.swing.JLabel();
         lblFecha1 = new javax.swing.JLabel();
         cbTipoSuscri2 = new javax.swing.JComboBox<>();
@@ -176,7 +176,6 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
         lblHoras.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
         lblHoras.setText("Horas Incluidas:");
 
-        cbTipoSuscri.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Basica", "VIP" }));
         cbTipoSuscri.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbTipoSuscriMouseClicked(evt);
@@ -278,14 +277,13 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
 
         panelSuscripcionActiva.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Suscripción Activa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Shree Devanagari 714", 1, 24))); // NOI18N
 
-        txtHorasRestantes.setEditable(false);
+        txtCobroFinal.setEditable(false);
 
         lblHoras1.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
-        lblHoras1.setText("Horas Restantes:");
+        lblHoras1.setText("Cobro Final:");
 
         lblFecha1.setText("Valido Hasta:");
 
-        cbTipoSuscri2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Basica", "VIP" }));
         cbTipoSuscri2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbTipoSuscri2MouseClicked(evt);
@@ -320,14 +318,15 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
                         .addGroup(panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(validoHasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbTipoSuscri2, 0, 131, Short.MAX_VALUE)))
-                    .addGroup(panelSuscripcionActivaLayout.createSequentialGroup()
-                        .addComponent(lblHoras1)
-                        .addGap(94, 94, 94)
-                        .addComponent(txtHorasRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelSuscripcionActivaLayout.createSequentialGroup()
-                        .addComponent(lblHoras2)
-                        .addGap(94, 94, 94)
-                        .addComponent(txtHorasUsadas, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSuscripcionActivaLayout.createSequentialGroup()
+                            .addComponent(lblHoras1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCobroFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSuscripcionActivaLayout.createSequentialGroup()
+                            .addComponent(lblHoras2)
+                            .addGap(94, 94, 94)
+                            .addComponent(txtHorasUsadas, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         panelSuscripcionActivaLayout.setVerticalGroup(
@@ -348,7 +347,7 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(panelSuscripcionActivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHoras1)
-                    .addComponent(txtHorasRestantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCobroFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -446,7 +445,7 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
         String id = txtId.getText();
-        TipoSuscripcion tipo = TipoSuscripcion.valueOf(cbTipoSuscri.getSelectedItem().toString());
+        TipoSuscripcion tipo = (TipoSuscripcion) cbTipoSuscri.getSelectedItem();
         Date fecha = fechaInicial.getDate();
         LocalDate fechaInicial = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
         int horasIncluidas = Integer.parseInt(txtHorasPlan.getText());
@@ -461,47 +460,20 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnCrearActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaGestionarSuscripciones().setVisible(true));
-    }
-
-
-    public void configurarCbUno (){
+    public void configurarCbUno() {
         cbTipoSuscri.removeAllItems();
-        cbTipoSuscri.addItem("Seleccionar");
-        cbTipoSuscri.addItem("Básica");
-        cbTipoSuscri.addItem("VIP");
+        cbTipoSuscri.addItem(null);
+        cbTipoSuscri.addItem(TipoSuscripcion.BASICA);
+        cbTipoSuscri.addItem(TipoSuscripcion.VIP);
     }
-    
-    public void configurarCbDos (){
+
+    public void configurarCbDos() {
         cbTipoSuscri2.removeAllItems();
-        cbTipoSuscri2.addItem("Seleccionar");
-        cbTipoSuscri2.addItem("Básica");
-        cbTipoSuscri2.addItem("VIP");
+        cbTipoSuscri2.addItem(null);
+        cbTipoSuscri2.addItem(TipoSuscripcion.BASICA);
+        cbTipoSuscri2.addItem(TipoSuscripcion.VIP);
     }
-    
+
     public void horaIncluidasTipo() {
         int indiceSeleccionado = cbTipoSuscri.getSelectedIndex();
 
@@ -521,8 +493,8 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnCrearSuscripcion;
-    private javax.swing.JComboBox<String> cbTipoSuscri;
-    private javax.swing.JComboBox<String> cbTipoSuscri2;
+    private javax.swing.JComboBox<TipoSuscripcion> cbTipoSuscri;
+    private javax.swing.JComboBox<TipoSuscripcion> cbTipoSuscri2;
     private com.toedter.calendar.JDateChooser fechaInicial;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel13;
@@ -540,8 +512,8 @@ public class VentanaGestionarSuscripciones extends javax.swing.JFrame {
     private javax.swing.JPanel panelCrearSuscripcion;
     private javax.swing.JPanel panelSuscripcionActiva;
     private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtCobroFinal;
     private javax.swing.JTextField txtHorasPlan;
-    private javax.swing.JTextField txtHorasRestantes;
     private javax.swing.JTextField txtHorasUsadas;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombreCliente;

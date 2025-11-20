@@ -4,6 +4,8 @@
  */
 package vista;
 
+import modelo.Cliente;
+
 /**
  *
  * @author nataliasabogalrada
@@ -17,12 +19,14 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
      */
     private int fila;
     private int columna;
+    private Cliente cliente;
 
-    public VentanaReservaMaquina(int fila, int columna) {
+    public VentanaReservaMaquina(int fila, int columna, Cliente cliente) {
         initComponents();
         this.fila = fila;
         this.columna = columna;
         this.setLocationRelativeTo(null);
+        this.cliente = cliente;
         if (!txtHoraAsignada.getText().isEmpty()) {
             mostrarBotones();
         }
@@ -183,7 +187,7 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaVerMaquinaCliente principal = new VentanaVerMaquinaCliente(fila, columna);
+        VentanaVerMaquinaCliente principal = new VentanaVerMaquinaCliente(fila, columna, cliente);
         principal.setVisible(true);
         principal.setLocationRelativeTo(this);
         this.dispose();

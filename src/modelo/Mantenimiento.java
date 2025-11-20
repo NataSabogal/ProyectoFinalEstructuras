@@ -5,6 +5,8 @@
 package modelo;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -14,10 +16,12 @@ public class Mantenimiento implements Serializable {
     
     private String razonFueraDeServicio;
     private int cantidadDiasFueraDeServicio;
+    private LocalDate fechaInicio;
 
     public Mantenimiento(String razonFueraDeServicio, int cantidadDiasFueraDeServicio) {
         this.razonFueraDeServicio = razonFueraDeServicio;
         this.cantidadDiasFueraDeServicio = cantidadDiasFueraDeServicio;
+        this.fechaInicio = LocalDate.now();
     }
 
     public String getRazonFueraDeServicio() {
@@ -36,5 +40,14 @@ public class Mantenimiento implements Serializable {
         this.cantidadDiasFueraDeServicio = cantidadDiasFueraDeServicio;
     }
 
+    public int diasRestantes() {
+        LocalDate fechaFin = fechaInicio.plusDays(cantidadDiasFueraDeServicio);
+        if (fechaInicio.isAfter(fechaFin)) {
+            return 0;
+        } else {
+            long restan = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
+            return (int) restan;
+        }
+    }
     
 }

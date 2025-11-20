@@ -53,10 +53,13 @@
                       <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="56" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane1" min="-2" pref="206" max="-2" attributes="0"/>
-                      <Component id="txtMotivo1" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="txtDias" min="-2" pref="130" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
               </Group>
@@ -79,7 +82,7 @@
                           <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtMotivo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtDias" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -106,10 +109,10 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Shree Devanagari 714" size="12" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="D&#xed;as Fuera de Servicio:"/>
+            <Property name="text" type="java.lang.String" value="D&#xed;as Restantes Fuera de Servicio:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtMotivo1">
+        <Component class="javax.swing.JTextField" name="txtDias">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
@@ -129,7 +132,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextArea1">
+            <Component class="javax.swing.JTextArea" name="txtMotivo">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>

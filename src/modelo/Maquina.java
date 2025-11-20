@@ -20,7 +20,7 @@ public class Maquina implements Serializable {
     private EstadoMaquina estado;
     private double valorPorHora;
     private Mantenimiento mantenimiento;
-    private Lista<Reserva> listaReservas;
+    private Lista<Calendario> reservasPorDias;
 
     public Maquina() {
         this.id = null;
@@ -29,7 +29,7 @@ public class Maquina implements Serializable {
         this.edadMinima = 0;
         this.estado = EstadoMaquina.DISPONIBLE;
         this.valorPorHora = 0.0;
-        this.listaReservas = new Lista<>();
+        this.reservasPorDias = new Lista<>();
 
     }
 
@@ -40,7 +40,7 @@ public class Maquina implements Serializable {
         this.edadMinima = edadMinima;
         this.estado = EstadoMaquina.DISPONIBLE;
         this.valorPorHora = valorPorHora;
-        this.listaReservas = new Lista<>();
+        this.reservasPorDias = new Lista<>();
     }
 
     public Maquina(String id, String tipoDeJuego, String genero, int edadMinima, EstadoMaquina estado, double valorPorHora, Mantenimiento mantenimiento) {
@@ -51,7 +51,7 @@ public class Maquina implements Serializable {
         this.estado = EstadoMaquina.FUERADESERVICIO;
         this.valorPorHora = valorPorHora;
         this.mantenimiento = mantenimiento;
-        this.listaReservas = new Lista<>();
+        this.reservasPorDias = new Lista<>();
     }
 
     public String getId() {
@@ -122,4 +122,10 @@ public class Maquina implements Serializable {
     public boolean fueraDeServicio() {
         return estado == EstadoMaquina.FUERADESERVICIO;
     }
+
+    public Lista<Calendario> getReservasPorDias() {
+        return reservasPorDias;
+    }
+    
+    
 }

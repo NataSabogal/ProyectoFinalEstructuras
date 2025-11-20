@@ -5,12 +5,12 @@
 package vista;
 
 import controlador.ControladorPrincipal;
-import controlador.ControladorRegistroCliente;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import modelo.EstadoMaquina;
+import javax.swing.JOptionPane;
+import modelo.Cliente;
 import modelo.Maquina;
 
 /**
@@ -23,18 +23,21 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
     private JButton[][] buttons;
     private ControladorPrincipal controller;
     private boolean isAdmin;
+    private Cliente cliente;
 
     /**
      * Creates new form VentanaPrincipal
      */
-    public VentanaPrincipal(boolean isAdmin) {
+    public VentanaPrincipal(boolean isAdmin, Cliente cliente) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.controller = new ControladorPrincipal();
         this.isAdmin = isAdmin;
+        this.cliente = cliente;
         buttons = new JButton[3][4];
         dibujarBotones();
         pintarBotones();
+        mostrarBotones();
     }
 
     /**
@@ -47,20 +50,63 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
     private void initComponents() {
 
         panel = new javax.swing.JPanel();
+        btnAtras = new javax.swing.JButton();
+        panelBotonesXY = new javax.swing.JPanel();
+        btnCommandX = new javax.swing.JButton();
+        btnCommandY = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventana Principal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Shree Devanagari 714", 1, 24))); // NOI18N
 
+        btnAtras.setText("⤺");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 443, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                .addGap(0, 377, Short.MAX_VALUE)
+                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 223, Short.MAX_VALUE)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAtras)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelBotonesXY.setBorder(new javax.swing.border.MatteBorder(null));
+
+        btnCommandX.setText("Command X");
+
+        btnCommandY.setText("Command Y");
+
+        javax.swing.GroupLayout panelBotonesXYLayout = new javax.swing.GroupLayout(panelBotonesXY);
+        panelBotonesXY.setLayout(panelBotonesXYLayout);
+        panelBotonesXYLayout.setHorizontalGroup(
+            panelBotonesXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBotonesXYLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelBotonesXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCommandX, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(btnCommandY, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelBotonesXYLayout.setVerticalGroup(
+            panelBotonesXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBotonesXYLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(btnCommandX, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addComponent(btnCommandY)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -68,46 +114,47 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelBotonesXY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 190, Short.MAX_VALUE)
+                        .addComponent(panelBotonesXY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            logger.log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> new VentanaPrincipal().setVisible(true));
-//    }
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        if (isAdmin) {
+            VentanaPrincipalAdmin admin = new VentanaPrincipalAdmin();
+            admin.setVisible(true);
+            admin.setLocationRelativeTo(null);
+            this.dispose();
+        } else {
+            VentanaLogin login = new VentanaLogin();
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnAtrasActionPerformed
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtras;
+    private javax.swing.JButton btnCommandX;
+    private javax.swing.JButton btnCommandY;
     private javax.swing.JPanel panel;
+    private javax.swing.JPanel panelBotonesXY;
     // End of variables declaration//GEN-END:variables
 
     private void dibujarBotones() {
@@ -174,15 +221,15 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
                             this.dispose();
                         } else if (controller.estaFueraDeServicio(fila, columna)) {
 
-                            VentanaMotivoFueraServicio fs = new VentanaMotivoFueraServicio();
+                            VentanaMotivoFueraServicio fs = new VentanaMotivoFueraServicio(fila, columna, true, null);
                             fs.setVisible(true);
                             fs.setLocationRelativeTo(null);
                             this.dispose();
 
                         } else {
-                            VentanaDisponibilidadMaquina disponibilidad = new VentanaDisponibilidadMaquina(fila, columna);
-                            disponibilidad.setVisible(true);
-                            disponibilidad.setLocationRelativeTo(null);
+                            VentanaRegistroMaquina register = new VentanaRegistroMaquina(fila, columna);
+                            register.setVisible(true);
+                            register.setLocationRelativeTo(null);
                             this.dispose();
 
                         }
@@ -190,21 +237,18 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
                         if (controller.isDisponible(fila, columna)) {
 
-                            VentanaVerMaquinaCliente maquina = new VentanaVerMaquinaCliente(fila, columna);
-                            maquina.setVisible(true);
-                            maquina.setLocationRelativeTo(null);
-                            this.dispose();
-                        } else if (controller.estaFueraDeServicio(fila, columna)) {
+                            JOptionPane.showMessageDialog(null, "Esta maquina no esta disponible");
 
-                            VentanaMotivoFueraServicio fs = new VentanaMotivoFueraServicio();
-                            fs.setVisible(true);
-                            fs.setLocationRelativeTo(null);
+                        } else if (controller.estaFueraDeServicio(fila, columna)) {
+                            VentanaMotivoFueraServicio motivo = new VentanaMotivoFueraServicio(fila, columna, false, cliente);
+                            motivo.setVisible(true);
+                            motivo.setLocationRelativeTo(null);
                             this.dispose();
 
                         } else {
-                            VentanaDisponibilidadMaquina disponibilidad = new VentanaDisponibilidadMaquina(fila, columna);
-                            disponibilidad.setVisible(true);
-                            disponibilidad.setLocationRelativeTo(null);
+                            VentanaVerMaquinaCliente maquina = new VentanaVerMaquinaCliente(fila, columna, cliente);
+                            maquina.setVisible(true);
+                            maquina.setLocationRelativeTo(null);
                             this.dispose();
 
                         }
@@ -212,6 +256,16 @@ public class VentanaPrincipal extends javax.swing.JFrame implements ActionListen
 
                 }
             }
+        }
+    }
+
+    public void mostrarBotones() {
+        if (isAdmin) {
+            btnCommandX.setVisible(true);
+            btnCommandY.setVisible(true);
+        } else {
+            btnCommandX.setVisible(false);
+            btnCommandY.setVisible(false);
         }
     }
 }

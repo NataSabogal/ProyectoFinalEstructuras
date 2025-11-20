@@ -115,7 +115,7 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVerMaquinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMaquinasActionPerformed
-        VentanaPrincipal principal = new VentanaPrincipal(true);
+        VentanaPrincipal principal = new VentanaPrincipal(true, null);
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
         this.dispose();

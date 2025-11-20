@@ -4,12 +4,14 @@
  */
 package vista;
 
+import modelo.Cliente;
+
 /**
  *
  * @author nataliasabogalrada
  */
 public class VentanaVerMaquinaCliente extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaVerMaquinaCliente.class.getName());
 
     /**
@@ -17,10 +19,13 @@ public class VentanaVerMaquinaCliente extends javax.swing.JFrame {
      */
     int fila;
     int columna;
-    public VentanaVerMaquinaCliente(int fila, int columna) {
+    Cliente cliente;
+
+    public VentanaVerMaquinaCliente(int fila, int columna, Cliente cliente) {
         initComponents();
         this.fila = fila;
         this.columna = columna;
+        this.cliente = cliente;
     }
 
     /**
@@ -79,7 +84,7 @@ public class VentanaVerMaquinaCliente extends javax.swing.JFrame {
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
         // TODO add your handling code here:
-        VentanaReservaMaquina reservar = new VentanaReservaMaquina(fila, columna);
+        VentanaReservaMaquina reservar = new VentanaReservaMaquina(fila, columna, cliente);
         reservar.setVisible(true);
         reservar.setLocationRelativeTo(null);
         this.dispose();

@@ -47,7 +47,7 @@ public class DAOMaquina implements IDAOMaquina {
     public void editarMaquina(int fila, int columna, Maquina maquina) {
         Maquina aux = buscarMaquina(fila, columna, maquina.getId());
         if (aux.getId().equals(maquina.getId()) && aux.getEstado().equals(EstadoMaquina.REGISTRADO)) {
-            
+
             aux.setEdadMinima(maquina.getEdadMinima());
             aux.setGenero(maquina.getGenero());
             aux.setTipoDeJuego(maquina.getTipoDeJuego());
@@ -103,12 +103,45 @@ public class DAOMaquina implements IDAOMaquina {
         Maquina aux = maquinas[fila][columna];
         if (aux.getEstado().equals(EstadoMaquina.REGISTRADO) && mantenimiento.getRazonFueraDeServicio() != null && (!(mantenimiento.getCantidadDiasFueraDeServicio() == 0))) {
             aux.setEstado(EstadoMaquina.FUERADESERVICIO);
+            aux.setMantenimiento(mantenimiento);
             Serializadora.getInstance().escribirMaquina();
-           
+
             return aux;
         }
-        
+
         throw new RuntimeException("algo salió mal");
+    }
+
+    @Override
+    public Mantenimiento mostrarDetalleMantenimiento(int fila, int columna) {
+        return entregarMaquina(fila, columna).getMantenimiento();
+
+    }
+
+    @Override
+    public boolean mantenimientoFinalizado(int fila, int columna, Mantenimiento mantenimiento) {
+        Maquina aux = maquinas[fila][columna];
+        if (mantenimiento.diasRestantes() == 0) {
+            aux.setEstado(EstadoMaquina.REGISTRADO);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int diasRestantes(int fila, int columna, Mantenimiento mantenimiento) {
+        Mantenimiento aux = maquinas[fila][columna].getMantenimiento();
+        return aux.diasRestantes();
+
+    }
+
+    @Override
+    public void actualizarEstadoMantenimiento(int fila, int columna) {
+        Maquina aux = maquinas[fila][columna];
+        if (aux.getMantenimiento() != null && aux.getMantenimiento().diasRestantes() == 0) {
+            aux.setEstado(EstadoMaquina.REGISTRADO);
+            aux.setMantenimiento(null);
+        }
     }
 
 }

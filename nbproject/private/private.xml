@@ -11,6 +11,12 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/nataliasabogalrada/NetBeansProjects/EstructurasDeDatos-S5/SalonDeVideoJuegosProyectoEstructuras/src/vista/VentanaRegistroMaquina.java</file>
+            <file>file:/Users/nataliasabogalrada/NetBeansProjects/EstructurasDeDatos-S5/SalonDeVideoJuegosProyectoEstructuras/src/vista/VentanaMotivoFueraServicio.java</file>
+            <file>file:/Users/nataliasabogalrada/NetBeansProjects/EstructurasDeDatos-S5/SalonDeVideoJuegosProyectoEstructuras/src/serializadora/Serializadora.java</file>
+            <file>file:/Users/nataliasabogalrada/NetBeansProjects/EstructurasDeDatos-S5/SalonDeVideoJuegosProyectoEstructuras/src/modelo/TipoSuscripcion.java</file>
+            <file>file:/Users/nataliasabogalrada/NetBeansProjects/EstructurasDeDatos-S5/SalonDeVideoJuegosProyectoEstructuras/src/vista/VentanaGestionarSuscripciones.java</file>
+        </group>
     </open-files>
 </project-private>

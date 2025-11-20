@@ -4,20 +4,40 @@
  */
 package vista;
 
+import controlador.ControladorMantenimiento;
+import modelo.Cliente;
+import modelo.Mantenimiento;
+
 /**
  *
  * @author nataliasabogalrada
  */
 public class VentanaMotivoFueraServicio extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaMotivoFueraServicio.class.getName());
+
+    ControladorMantenimiento controller;
+    int fila;
+    int columna;
+    boolean isAdmin;
+    Cliente cliente;
 
     /**
      * Creates new form VentanaMotivoFueraServicio
      */
-    public VentanaMotivoFueraServicio() {
+    public VentanaMotivoFueraServicio(int fila, int columna, boolean isAdmin, Cliente cliente) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.controller = new ControladorMantenimiento();
+        this.cliente = cliente;
+        this.isAdmin = isAdmin;
+        this.fila = fila;
+        this.columna = columna;
+        mostrar();
+        if (txtDias.getText().equals(0)) {
+            controller.actualizarEstadoMantenimiento(fila, columna);
+        }
+        
     }
 
     /**
@@ -32,10 +52,10 @@ public class VentanaMotivoFueraServicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtMotivo1 = new javax.swing.JTextField();
+        txtDias = new javax.swing.JTextField();
         btnAtras = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtMotivo = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,9 +65,9 @@ public class VentanaMotivoFueraServicio extends javax.swing.JFrame {
         jLabel6.setText("Motivo:");
 
         jLabel7.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
-        jLabel7.setText("Días Fuera de Servicio:");
+        jLabel7.setText("Días Restantes Fuera de Servicio:");
 
-        txtMotivo1.setEditable(false);
+        txtDias.setEditable(false);
 
         btnAtras.setText("⤺");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -56,9 +76,9 @@ public class VentanaMotivoFueraServicio extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtMotivo.setColumns(20);
+        txtMotivo.setRows(5);
+        jScrollPane1.setViewportView(txtMotivo);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -69,10 +89,12 @@ public class VentanaMotivoFueraServicio extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMotivo1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(txtDias, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(9, 9, 9))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -91,7 +113,7 @@ public class VentanaMotivoFueraServicio extends javax.swing.JFrame {
                         .addGap(84, 84, 84)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(txtMotivo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -113,36 +135,33 @@ public class VentanaMotivoFueraServicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaPrincipalAdmin principal = new VentanaPrincipalAdmin();
-        principal.setVisible(true);
-        principal.setLocationRelativeTo(this);
-        this.dispose();
+        if (isAdmin) {
+            VentanaPrincipalAdmin principal = new VentanaPrincipalAdmin();
+            principal.setVisible(true);
+            principal.setLocationRelativeTo(this);
+            this.dispose();
+        } else {
+            VentanaPrincipalCliente clien = new VentanaPrincipalCliente(cliente);
+            clien.setVisible(true);
+            clien.setLocationRelativeTo(null);
+            this.dispose();
+
+        }
+
     }//GEN-LAST:event_btnAtrasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    public void mostrar() {
+        Mantenimiento aux = controller.mostrarDetalleMantenimiento(fila, columna);
+        if (aux != null) {
+            txtDias.setText(controller.diasRestantes(fila, columna, aux) + "");
+            txtMotivo.setText(aux.getRazonFueraDeServicio());
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaMotivoFueraServicio().setVisible(true));
+        }
+
     }
+
+   
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
@@ -150,7 +169,7 @@ public class VentanaMotivoFueraServicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField txtMotivo1;
+    private javax.swing.JTextField txtDias;
+    private javax.swing.JTextArea txtMotivo;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,6 +11,18 @@ import java.io.Serializable;
  * @author nataliasabogalrada
  */
 public enum TipoSuscripcion implements Serializable {
-    BASICA, VIP, NINGUNA
+    BASICA("Básica"),
+    VIP("VIP"),
+    NINGUNA("Ninguna");
+    
+    private String valor;
 
+    private TipoSuscripcion(String valor) {
+        this.valor = valor;
+    }
+
+    @Override
+    public String toString() {
+        return valor;
+    }
 }

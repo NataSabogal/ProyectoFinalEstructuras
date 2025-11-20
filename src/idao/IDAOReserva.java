@@ -14,13 +14,22 @@ import modelo.Reserva;
  * @author nataliasabogalrada
  */
 public interface IDAOReserva {
-    
+
+    public void crearReserva(Reserva reserva, int fila, int columna);
+
     public Calendario obtenerCalendarioDeMaquina(Maquina maquina, LocalDate fecha);
+
+    public boolean validarDisponibilidadHoras(int fila, int columna, int horaInicio, LocalDate fecha);
+
+    public void cancelarReserva(String id, int fila, int columna, LocalDate fecha);
+
+    public int calcularHorasDisponibles(int fila, int columna, LocalDate fecha);
+
+    public void agregarAColaEspera(Reserva reserva, int fila, int columna, LocalDate fecha);
+
+    public boolean hayDisponibilidad(int fila, int columna, LocalDate fecha, int horasNecesarias);
+
+    public String obtenerHorasAsignadas(String id, int fila, int columna, LocalDate fecha);
     
-    public boolean validarDisponibilidadHoras(Calendario calendario, int horaInicio, int cantidadHoras);
-    
-    public int calcularPrimeraHoraDisponible(Calendario calendario, int cantidadHoras);
-    
-    public Reserva buscarReservaPorId(Calendario calendario, String id);
-    
+    public String calcularProximaHoraDisponible(int fila, int columna, LocalDate fecha, int horasNecesarias);
 }

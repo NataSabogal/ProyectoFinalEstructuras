@@ -4,7 +4,13 @@
  */
 package vista;
 
+import controlador.ControladorReserva;
+import java.time.LocalDate;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import modelo.Cliente;
+import modelo.Maquina;
+import modelo.Reserva;
 
 /**
  *
@@ -14,6 +20,7 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaReservaMaquina.class.getName());
 
+    ControladorReserva controller;
     /**
      * Creates new form VentanaReservaMaquina
      */
@@ -27,6 +34,7 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
         this.columna = columna;
         this.setLocationRelativeTo(null);
         this.cliente = cliente;
+        this.controller = new ControladorReserva();
         if (!txtHoraAsignada.getText().isEmpty()) {
             mostrarBotones();
         }
@@ -47,7 +55,7 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
         txtID = new javax.swing.JTextField();
         lblId = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
-        fecha = new com.toedter.calendar.JDateChooser();
+        fechajc = new com.toedter.calendar.JDateChooser();
         jLabel13 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         cantidadHoras = new javax.swing.JSpinner();
@@ -73,6 +81,11 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
         jLabel15.setText("Cédula Cliente:");
 
         btnReservar.setText("Reservar");
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservarActionPerformed(evt);
+            }
+        });
 
         btnAtras.setText("⤺");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -82,8 +95,18 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel16.setText("Hora asignada:");
 
@@ -116,7 +139,7 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
                             .addComponent(jLabel16))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fechajc, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtCedulaCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,7 +178,7 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblFecha)
-                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fechajc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
@@ -195,8 +218,78 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
-        mostrarBotones();
+        try {
+            String id = txtID.getText();
+            int horas = (Integer) cantidadHoras.getValue();
+            Date fecha = fechajc.getDate();
+            LocalDate fechaAgenda = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+            String horasDisponibles = controller.calcularProximaHoraDisponible(fila, columna, fechaAgenda, horas);
+            if (horasDisponibles != null) {
+                txtHoraAsignada.setText(horasDisponibles);
+                mostrarBotones();
+                JOptionPane.showMessageDialog(null, "Horario disponible encontrado");
+
+            } else {
+                txtHoraAsignada.setText("No hay disponibilidad");
+                esconderBotones();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
     }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        // TODO add your handling code here:
+        try {
+            String id = txtID.getText();
+            int horas = (Integer) cantidadHoras.getValue();
+            Date fecha = fechajc.getDate();
+            LocalDate fechaAgenda = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+            Maquina maquina = controller.entregarMaquina(fila, columna);
+            Reserva reserva = new Reserva(id, cliente, maquina, fechaAgenda, horas);
+
+            controller.crearReserva(reserva, fila, columna);
+
+            JOptionPane.showMessageDialog(null, "Reserva creada correctamente!");
+
+        } catch (RuntimeException e) {
+            if (e.getMessage().contains("cola de espera")) {
+                int opcion = JOptionPane.showConfirmDialog(null,
+                        "No hay disponibilidad. ¿ir a cola de espera?",
+                        "Cola de espera", JOptionPane.YES_NO_OPTION);
+
+                if (opcion == JOptionPane.YES_OPTION) {
+                    String id = txtID.getText();
+                    int horas = (Integer) cantidadHoras.getValue();
+                    Date fecha = fechajc.getDate();
+                    LocalDate fechaAgenda = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+                    Maquina maquina = controller.entregarMaquina(fila, columna);
+                    Reserva reserva = new Reserva(id, cliente, maquina, fechaAgenda, horas);
+//aqui podria llamar el metodo para lo de la cola
+                    JOptionPane.showMessageDialog(null, "Agregado a cola de espera");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+
+    }//GEN-LAST:event_btnReservarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        String id = txtID.getText();
+        Date fecha = fechajc.getDate();
+        LocalDate fechaAgenda = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaHoy = LocalDate.now();
+        controller.cancelarReserva(id, fila, columna, fechaAgenda, fechaHoy);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+//        String id = txtID.getText();
+//        controller.
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     public void esconderBotones() {
         btnBuscar.setVisible(false);
@@ -210,7 +303,7 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
         btnReservar.setVisible(true);
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnBuscar;
@@ -218,7 +311,7 @@ public class VentanaReservaMaquina extends javax.swing.JFrame {
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnReservar;
     private javax.swing.JSpinner cantidadHoras;
-    private com.toedter.calendar.JDateChooser fecha;
+    private com.toedter.calendar.JDateChooser fechajc;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
